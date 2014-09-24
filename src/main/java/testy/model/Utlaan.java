@@ -45,6 +45,7 @@ public class Utlaan {
   }
   
   public Date getForfallsdato(){
+    //fristservice.beregnForfallsdato()
     return new Date(utlaansdato.getTime() + 30 * 24 * 60 * 60 * 1000);
   }
 }

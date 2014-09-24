@@ -12,6 +12,8 @@ public class Laaner {
   String epost;
   String mobilnr;
   List<Utlaan> utlaan;
+  Bibliotek bibliotek;
+  String type;
 
   public String getFornavn() {
     return fornavn;
@@ -51,5 +53,21 @@ public class Laaner {
 
   public void setUtlaan(List<Utlaan> utlaan) {
     this.utlaan = utlaan;
+  }
+  
+  public Bibliotek getBibliotek() {
+    return bibliotek;
+  }
+
+  public void setBibliotek(Bibliotek bibliotek) {
+    this.bibliotek = bibliotek;
+  }
+  
+  public String getType() {
+    return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
   }
 }

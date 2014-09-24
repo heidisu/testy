@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package testy.service;
+package testy.manager;
 
 import java.util.List;
 import java.util.Map;

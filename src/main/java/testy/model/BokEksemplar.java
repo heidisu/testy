@@ -7,6 +7,24 @@ package testy.model;
 public class BokEksemplar {
     private Bok bok;
     private Utgiver utgiver;
+    private String hylleplassering;
+    private Bibliotek eier;
+
+  public String getHylleplassering() {
+    return hylleplassering;
+  }
+
+  public void setHylleplassering(String hylleplassering) {
+    this.hylleplassering = hylleplassering;
+  }
+
+  public Bibliotek getEier() {
+    return eier;
+  }
+
+  public void setEier(Bibliotek eier) {
+    this.eier = eier;
+  }
 
   public Bok getBok() {
     return bok;

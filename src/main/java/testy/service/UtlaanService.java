@@ -1,11 +1,13 @@
 package testy.service;
 
+import testy.manager.UtlaanManager;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import testy.model.Laaner;
 import testy.model.Utlaan;
 import testy.util.MailUtil;
+import testy.util.StoreUtil;
 
 /**
  *
@@ -26,5 +28,10 @@ public class UtlaanService {
             String tekst = MailUtil.getForfallTekst(entry.getValue());
             mailService.sendMail(tittel, tekst, epost);
         }
+    }
+    
+    public void fornyUtlaan(Utlaan utlaan){
+      utlaan.setAntallFornyelser(utlaan.getAntallFornyelser() + 1);
+      StoreUtil.save(utlaan);
     }
 }

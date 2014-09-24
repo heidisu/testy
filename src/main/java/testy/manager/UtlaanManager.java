@@ -1,6 +1,7 @@
 package testy.manager;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,8 +32,13 @@ public class UtlaanManager implements IUtlaanManager{
   }
   
   public Map<Laaner, List<Utlaan>> getForfallendeUtlaan(){
-    // 
+    // finner liste over lånere og deres forfallende utlån i databasen
     return new HashMap<Laaner, List<Utlaan>>();
+  }
+  
+  public List<Utlaan> getUtlaan(Laaner laaner){
+    // finner en låners utlån i databasen
+    return new ArrayList<Utlaan>();
   }
   
   public String utlaanBok(Laaner laaner, BokEksemplar bokEksemplar){

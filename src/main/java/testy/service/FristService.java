@@ -8,7 +8,6 @@ import testy.model.Utlaan;
  * @author heidisu
  */
 public class FristService {
-  //return new Date(utlaansdato.getTime() + 30 * 24 * 60 * 60 * 1000);
    public Date beregnForfallsdato(Utlaan utlaan){
      int antallFornyelser = utlaan.getAntallFornyelser();
      if(antallFornyelser == 0){

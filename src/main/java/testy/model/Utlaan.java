@@ -1,6 +1,7 @@
 package testy.model;
 
 import java.util.Date;
+import testy.service.FristService;
 
 /**
  *
@@ -11,6 +12,16 @@ public class Utlaan {
   private BokEksemplar bokEksemplar;
   private Date utlaansdato;
   private int antallFornyelser;
+  private final FristService fristService = new FristService();
+  private Date levertDato;
+
+  public Date getLevertDato() {
+    return levertDato;
+  }
+
+  public void setLevertDato(Date levertDato) {
+    this.levertDato = levertDato;
+  }
 
   public Laaner getLaaner() {
     return laaner;
@@ -45,7 +56,6 @@ public class Utlaan {
   }
   
   public Date getForfallsdato(){
-    //fristservice.beregnForfallsdato()
-    return new Date(utlaansdato.getTime() + 30 * 24 * 60 * 60 * 1000);
+    return fristService.beregnForfallsdato(this);
   }
 }

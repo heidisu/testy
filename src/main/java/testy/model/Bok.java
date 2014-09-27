@@ -1,5 +1,8 @@
 package testy.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author heidisu
@@ -9,6 +12,7 @@ public class Bok {
   String tittel;
   Forfatter forfatter;
   String omtale;
+  List<Reservasjon> reservasjoner = new ArrayList<Reservasjon>();
 
   public String getTittel() {
     return tittel;
@@ -32,5 +36,13 @@ public class Bok {
 
   public void setOmtale(String omtale) {
     this.omtale = omtale;
+  }
+  
+  public List<Reservasjon> getReservasjoner(){
+    return reservasjoner;
+  }
+  
+  public void addReservasjon(Reservasjon reservasjon){
+    reservasjoner.add(reservasjon);
   }
 }

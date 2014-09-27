@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import testy.model.Bibliotek;
 import testy.model.Laaner;
+import testy.model.Reservasjon;
 import testy.model.Utlaan;
 
 /**
@@ -49,5 +50,9 @@ public class BibliotekService {
          default: 
        }
      }
+   }
+   
+   public void varsleBibliotek(String varselType, Reservasjon reservasjon){
+     
    }
 }

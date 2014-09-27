@@ -1,6 +1,7 @@
 package testy.util;
 
 import java.util.List;
+import testy.model.Reservasjon;
 import testy.model.Utlaan;
 
 /**
@@ -21,5 +22,15 @@ public class MailUtil {
   
   public static String getForfallTittel(){
     return "Påminnelse om forfallende lån";
+  }
+  
+  public static String getReservasjonTittel(){
+    return "Reservert bok kan hentes på biblioteket";
+  }
+  
+  public static String getReservasjonTekst(Reservasjon reservasjon){
+    String text = "Følgende bok kan hentes på biblioteket \n";
+    text += reservasjon.getBok().getTittel();
+    return text;
   }
 }

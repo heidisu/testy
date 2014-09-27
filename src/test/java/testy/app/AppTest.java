@@ -58,7 +58,7 @@ public class AppTest {
 
     UtlaanManager.getInstance().utlaanBok(michael, politiExemplar);
 
-    List<Utlaan> utlaanList = UtlaanManager.getInstance().getUtlaan(michael);
+    List<Utlaan> utlaanList = michael.getUtlaan();
 
     for (Utlaan utlaan : utlaanList) {
       System.out.println(utlaan);
@@ -72,7 +72,7 @@ public class AppTest {
   public void testForfallsDato() {
     List<Laaner> laanere = new LaanerService().getLaanere();
     for (Laaner laaner : laanere) {
-      List<Utlaan> utlaanList = UtlaanManager.getInstance().getUtlaan(laaner);
+      List<Utlaan> utlaanList = laaner.getUtlaan();
       for (Utlaan utlaan : utlaanList) {
         Assert.assertEquals(utlaan.getForfallsdato(), new FristService().beregnForfallsdato(utlaan));
       }

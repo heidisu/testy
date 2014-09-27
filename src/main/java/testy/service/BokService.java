@@ -49,6 +49,7 @@ public class BokService {
         reservasjon.setLaaner(laaner);
         bok.addReservasjon(reservasjon);
         StoreUtil.save(bok);
+        StoreUtil.save(reservasjon);
       }
       else{
         bibliotekService.varsleBibliotek("sendVidere", bokEksemplar, laaner);

@@ -3,6 +3,8 @@ package testy.service;
 import java.util.Date;
 import java.util.List;
 import testy.model.Bibliotek;
+import testy.model.Bok;
+import testy.model.BokEksemplar;
 import testy.model.Laaner;
 import testy.model.Reservasjon;
 import testy.model.Utlaan;
@@ -52,7 +54,12 @@ public class BibliotekService {
      }
    }
    
-   public void varsleBibliotek(String varselType, Reservasjon reservasjon){
-     
+   public void varsleBibliotek(String varselType, BokEksemplar bokEksemplar, Laaner laaner){
+     // ikke implementert enda..
+   }
+   
+   public BokEksemplar getLedigBokeksemplar(Bibliotek bibliotek, Bok bok){
+     // ikke implementert enda..
+     return null;
    }
 }

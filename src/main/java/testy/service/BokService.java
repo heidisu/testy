@@ -24,22 +24,40 @@ public class BokService {
             reservasjon.getReservasjonsdato().before(eldsteReservasjon.getReservasjonsdato())){
           eldsteReservasjon = reservasjon;
         }
-      }
-      eldsteReservasjon.setBokEksemplar(bokEksemplar);
-      StoreUtil.save(bokEksemplar);
-       
+      }       
       if(bokEksemplar.getEier().equals(eldsteReservasjon.getLaaner().getBibliotek())){
-        bibliotekService.varsleBibliotek("holdAv", eldsteReservasjon);   
+        bibliotekService.varsleBibliotek("holdAv", bokEksemplar, eldsteReservasjon.getLaaner());   
         new MailService().sendMail(MailUtil.getReservasjonTittel(),
             MailUtil.getReservasjonTekst(eldsteReservasjon), eldsteReservasjon.getLaaner().getEpost());
       }
       else{
-        bibliotekService.varsleBibliotek("sendVidere", eldsteReservasjon);
+        bibliotekService.varsleBibliotek("sendVidere", bokEksemplar, eldsteReservasjon.getLaaner());
       }
     }
   }
   
   public void bestillBok(Bok bok, Laaner laaner){
-    
+    BokEksemplar bokEksemplar = bibliotekService.getLedigBokeksemplar(laaner.getBibliotek(), bok);
+    if(bokEksemplar != null){
+      bibliotekService.varsleBibliotek("holdAv", bokEksemplar, laaner);
+    }
+    else{
+      bokEksemplar = finnLedigBokEksemplar(bok);
+      if(bokEksemplar == null){
+        Reservasjon reservasjon = new Reservasjon();
+        reservasjon.setBok(bok);
+        reservasjon.setLaaner(laaner);
+        bok.addReservasjon(reservasjon);
+        StoreUtil.save(bok);
+      }
+      else{
+        bibliotekService.varsleBibliotek("sendVidere", bokEksemplar, laaner);
+      }
+    }
+  }
+  
+  public BokEksemplar finnLedigBokEksemplar(Bok bok){
+    //ikke implementert enda..
+   return null;
   }
 }

@@ -9,16 +9,7 @@ import java.util.Date;
 public class Reservasjon {
   private Laaner laaner;
   private Bok bok;
-  private BokEksemplar bokEksemplar;
   private Date reservasjonsdato;
-
-  public BokEksemplar getBokEksemplar() {
-    return bokEksemplar;
-  }
-
-  public void setBokEksemplar(BokEksemplar bokEksemplar) {
-    this.bokEksemplar = bokEksemplar;
-  }
 
   public Laaner getLaaner() {
     return laaner;

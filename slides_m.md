@@ -92,6 +92,10 @@ After writing characterization test, look at the code you want to change and mak
 
 ----
 
+# Dependency-breaking techniques
+
+----
+
 # Example: legacy singletons
 
 ----
@@ -99,3 +103,11 @@ After writing characterization test, look at the code you want to change and mak
 # Misc
 
 * low risk changes
+
+----
+
+# References
+
+[Working Effectively With Legacy Code -pdf ](http://www.objectmentor.com/resources/articles/WorkingEffectivelyWithLegacyCode.pdf)
+
+[Working Effectively With Legacy Code - book](https://www.adlibris.com/no/product.aspx?isbn=0131177052)

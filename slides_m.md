@@ -60,6 +60,29 @@ Sometimes, we have to change some code to make something a seam. E.g. static -> 
 
 ----
 
+# I Need to make a change, but I don't know what tests to write
+
+## Characterization tests
+
+1. Write a test for a piece of code
+2. Write an assertion that fails
+3. Let the failure tell what the behaviour is
+4. Change the assertion to expect the behaviour
+5. Repeat
+
+## Characterizing classes
+
+1. Look for tangled piece of logic
+2. Make list of things that can go wrong, write test to trigger them
+3. Consider extreme values for test input
+4. Write tests to verify class invariants
+
+## Targeted testing
+
+After writing characterization test, look at the code you want to change and make sure that the tests really cover that part of code
+
+----
+
 # I Don't Understand the Code Well Enough to Change it
 
 * notes / sketching

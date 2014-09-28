@@ -5,6 +5,7 @@ import testy.model.Bok;
 import testy.model.BokEksemplar;
 import testy.model.Laaner;
 import testy.model.Reservasjon;
+import testy.model.Utlaan;
 import testy.util.MailUtil;
 import testy.util.StoreUtil;
 
@@ -33,6 +34,7 @@ public class BokService {
       else{
         bibliotekService.varsleBibliotek("sendVidere", bokEksemplar, eldsteReservasjon.getLaaner());
       }
+      StoreUtil.remove(eldsteReservasjon);
     }
   }
   
@@ -57,8 +59,20 @@ public class BokService {
     }
   }
   
-  public BokEksemplar finnLedigBokEksemplar(Bok bok){
-    //ikke implementert enda..
-   return null;
+  public BokEksemplar finnLedigBokEksemplar(Bok bok) {
+    List<BokEksemplar> bokEksemplarer = StoreUtil.getObjects(BokEksemplar.class);
+    List<Utlaan> utlaaner = StoreUtil.getObjects(Utlaan.class);
+    for (BokEksemplar bokEksemplar : bokEksemplarer) {
+      boolean utlaant = false;
+      for (Utlaan utlaan : utlaaner) {
+        if (utlaan.getBokEksemplar().equals(bokEksemplar)) {
+          utlaant = true;
+        }
+      }
+      if (!utlaant && bokEksemplar.getBok().equals(bok)) {
+        return bokEksemplar;
+      }
+    }
+    return null;
   }
 }

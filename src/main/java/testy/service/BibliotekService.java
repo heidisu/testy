@@ -1,13 +1,14 @@
 package testy.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import testy.model.Bibliotek;
 import testy.model.Bok;
 import testy.model.BokEksemplar;
 import testy.model.Laaner;
-import testy.model.Reservasjon;
 import testy.model.Utlaan;
+import testy.util.StoreUtil;
 
 /**
  *
@@ -59,7 +60,22 @@ public class BibliotekService {
    }
    
    public BokEksemplar getLedigBokeksemplar(Bibliotek bibliotek, Bok bok){
-     // ikke implementert enda..
-     return null;
+     List<BokEksemplar> bokEksemplarer = StoreUtil.getObjects(BokEksemplar.class);
+     List< BokEksemplar> eksemplarer = new ArrayList<BokEksemplar>();
+     for(BokEksemplar eksemplar : bokEksemplarer){
+       if(eksemplar.getBok().equals(bok) && eksemplar.getEier().equals(bibliotek)){
+         eksemplarer.add(eksemplar);
+       }
+     }
+     if(eksemplarer.isEmpty()){
+       return null;
+     }
+     List<Utlaan> utlaaner = StoreUtil.getObjects(Utlaan.class);
+     for(Utlaan utlaan : utlaaner){
+       if(eksemplarer.contains(utlaan.getBokEksemplar())){
+         eksemplarer.remove(utlaan.getBokEksemplar());
+       }
+     }
+     return eksemplarer.isEmpty() ? null : eksemplarer.iterator().next();
    }
 }

@@ -10,6 +10,7 @@ import org.testng.annotations.Test;
 import testy.manager.UtlaanManager;
 import testy.model.*;
 import testy.service.BibliotekService;
+import testy.service.BokService;
 import testy.service.FristService;
 import testy.service.LaanerService;
 import testy.util.StoreUtil;
@@ -19,7 +20,9 @@ import testy.util.StoreUtil;
  */
 @Test
 public class AppTest {
-
+  private Laaner heidi;
+  private Bok politi;
+  
   public void testRun() {
     Bibliotek lysaker = new Bibliotek();
     Bibliotek oslo = new Bibliotek();
@@ -32,8 +35,9 @@ public class AppTest {
     michael.setType("normal");
     StoreUtil.save(michael);
 
-    Laaner heidi = new Laaner();
+    heidi = new Laaner();
     heidi.setFornavn("Heidi");
+    heidi.setBibliotek(oslo);
     StoreUtil.save(heidi);
 
     oslo.setLaanere(new ArrayList<Laaner>());
@@ -45,7 +49,7 @@ public class AppTest {
     Forfatter nesboe = new Forfatter();
     StoreUtil.save(nesboe);
 
-    Bok politi = new Bok();
+    politi = new Bok();
     politi.setForfatter(nesboe);
     politi.setTittel("Politi");
     StoreUtil.save(politi);
@@ -77,6 +81,13 @@ public class AppTest {
         Assert.assertEquals(utlaan.getForfallsdato(), new FristService().beregnForfallsdato(utlaan));
       }
     }
+  }
+  
+  @Test(dependsOnMethods = {"testRun"})
+  public void testBestillBok(){
+   BokService bokService = new BokService();
+   bokService.bestillBok(politi, heidi);
+   Assert.assertEquals(politi.getReservasjoner().size(), 1);
   }
 
   @Test(dependsOnMethods = { "testRun" })

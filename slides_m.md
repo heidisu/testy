@@ -100,9 +100,29 @@ After writing characterization test, look at the code you want to change and mak
 
 ----
 
+# Example: service in domain model class
+
+I.e., for JEE: CDI in JPA
+
+----
+
 # Misc
 
 * low risk changes
+
+----
+
+# Prioritering av endringer i legacy kode
+
+which part of the code
+
+* contains most problems?
+* most responsibility?
+* runs slowest? 
+* contains most bugs?
+* causes most maintenance?
+
+what do we mean by problem, responsibility, etc, and how do we determine that?
 
 ----
 

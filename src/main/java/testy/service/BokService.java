@@ -1,6 +1,7 @@
 package testy.service;
 
 import java.util.List;
+import testy.manager.UtlaanManager;
 import testy.model.Bok;
 import testy.model.BokEksemplar;
 import testy.model.Laaner;
@@ -46,12 +47,10 @@ public class BokService {
     else{
       bokEksemplar = finnLedigBokEksemplar(bok);
       if(bokEksemplar == null){
-        Reservasjon reservasjon = new Reservasjon();
-        reservasjon.setBok(bok);
-        reservasjon.setLaaner(laaner);
+        Reservasjon reservasjon = 
+            UtlaanManager.getInstance().lagReservasjon(bok, laaner);
         bok.addReservasjon(reservasjon);
         StoreUtil.save(bok);
-        StoreUtil.save(reservasjon);
       }
       else{
         bibliotekService.varsleBibliotek("sendVidere", bokEksemplar, laaner);

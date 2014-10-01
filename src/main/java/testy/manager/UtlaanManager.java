@@ -6,8 +6,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import testy.model.Bok;
 import testy.model.BokEksemplar;
 import testy.model.Laaner;
+import testy.model.Reservasjon;
 import testy.model.Utlaan;
 import testy.service.BokService;
 import testy.service.FristService;
@@ -59,5 +61,13 @@ public class UtlaanManager implements IUtlaanManager{
     utlaan.setLevertDato(new Date(System.currentTimeMillis()));
     StoreUtil.save(utlaan);
     bokService.sjekkReservasjoner(utlaan.getBokEksemplar());
+  }
+  
+  public Reservasjon lagReservasjon(Bok bok, Laaner laaner) {
+    Reservasjon reservasjon = new Reservasjon();
+    reservasjon.setBok(bok);
+    reservasjon.setLaaner(laaner);
+    StoreUtil.save(reservasjon);
+    return reservasjon;
   }
 }

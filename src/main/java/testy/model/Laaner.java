@@ -15,8 +15,17 @@ public class Laaner {
   String mobilnr;
   List<Utlaan> utlaan = new ArrayList<Utlaan>();
   Bibliotek bibliotek;
-  String type; //ansatt,pensjonist, barn, standard
+  String type; //ansatt, pensjonist, barn, normal
   Date foedselsdato;
+  String id;
+
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
 
   public Date getFoedselsdato() {
     return foedselsdato;

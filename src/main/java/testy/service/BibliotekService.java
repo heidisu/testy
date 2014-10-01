@@ -1,8 +1,18 @@
 package testy.service;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.commons.net.ftp.FTP;
+import org.apache.commons.net.ftp.FTPClient;
 import testy.model.Bibliotek;
 import testy.model.Bok;
 import testy.model.BokEksemplar;
@@ -55,9 +65,38 @@ public class BibliotekService {
      }
    }
    
-   public void varsleBibliotek(String varselType, BokEksemplar bokEksemplar, Laaner laaner){
-     // ikke implementert enda..
-   }
+   public void varsleBibliotek(String varselType, BokEksemplar bokEksemplar, Laaner laaner) {
+    String server = "localhost";
+    int port = 21;
+    String user = "bibliotekadmin";
+    String pass = "bibliotek123";
+
+    FTPClient ftpClient = new FTPClient();
+    try {
+
+      ftpClient.connect(server, port);
+      ftpClient.login(user, pass);
+      ftpClient.enterLocalPassiveMode();
+
+      ftpClient.setFileType(FTP.ASCII_FILE_TYPE);
+
+      String firstRemoteFile = "varsel_" + System.currentTimeMillis() + ".txt";
+      String content = varselType
+          + ";"
+          + bokEksemplar.getHylleplassering()
+          + ";"
+          + laaner.getId();
+      byte[] bytes = content.getBytes(StandardCharsets.UTF_8);
+      InputStream inputStream = new ByteArrayInputStream(bytes);
+
+      ftpClient.storeFile(firstRemoteFile, inputStream);
+      inputStream.close();
+
+    } 
+    catch (IOException ex) {
+      Logger.getLogger(BibliotekService.class.getName()).log(Level.SEVERE, null, ex);
+    } 
+  }
    
    public BokEksemplar getLedigBokeksemplar(Bibliotek bibliotek, Bok bok){
      List<BokEksemplar> bokEksemplarer = StoreUtil.getObjects(BokEksemplar.class);

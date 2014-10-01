@@ -13,6 +13,7 @@ import testy.service.BibliotekService;
 import testy.service.BokService;
 import testy.service.FristService;
 import testy.service.LaanerService;
+import testy.service.MailService;
 import testy.util.StoreUtil;
 
 /**
@@ -31,18 +32,21 @@ public class AppTest {
 
     Laaner michael = new Laaner();
     michael.setBibliotek(lysaker);
+    lysaker.addLaaner(michael);
     michael.setFornavn("Michael");
     michael.setType("normal");
+    michael.setId("123");
+    michael.setEpost("");
     StoreUtil.save(michael);
 
     heidi = new Laaner();
     heidi.setFornavn("Heidi");
     heidi.setBibliotek(oslo);
+    heidi.setId("124");
+    heidi.setEpost("");
+    oslo.addLaaner(heidi);
     StoreUtil.save(heidi);
-
-    oslo.setLaanere(new ArrayList<Laaner>());
-    oslo.getLaanere().add(heidi);
-
+    
     Utgiver aschehoug = new Utgiver();
     StoreUtil.save(aschehoug);
 
@@ -58,6 +62,7 @@ public class AppTest {
     politiExemplar.setBok(politi);
     politiExemplar.setEier(lysaker);
     politiExemplar.setUtgiver(aschehoug);
+    politiExemplar.setHylleplassering("a14");
     StoreUtil.save(politiExemplar);
 
     UtlaanManager.getInstance().utlaanBok(michael, politiExemplar);
@@ -88,6 +93,7 @@ public class AppTest {
    BokService bokService = new BokService();
    bokService.bestillBok(politi, heidi);
    Assert.assertEquals(politi.getReservasjoner().size(), 1);
+   Assert.assertEquals(StoreUtil.getObjects(Reservasjon.class).size(), 1);
   }
 
   @Test(dependsOnMethods = { "testRun" })

@@ -48,7 +48,7 @@ Sometimes, we have to change some code to make something a seam. E.g. static -> 
 
 ----
 
-# Effect Analysis
+# Effect Analysis (H)
 
 ----
 
@@ -60,7 +60,7 @@ Sometimes, we have to change some code to make something a seam. E.g. static -> 
 
 ----
 
-# I Need to make a change, but I don't know what tests to write
+# I Need to make a change, but I don't know what tests to write (H)
 
 ## Characterization tests
 
@@ -83,6 +83,10 @@ After writing characterization test, look at the code you want to change and mak
 
 ----
 
+# This class is too big and I don't want it to get any bigger (H)
+
+----
+
 # I Don't Understand the Code Well Enough to Change it (M)
 
 * notes / sketching
@@ -92,7 +96,7 @@ After writing characterization test, look at the code you want to change and mak
 
 ----
 
-# Dependency-breaking techniques
+# Dependency-breaking techniques (H)
 
 ----
 

@@ -1,5 +1,5 @@
 
-# The Legacy Code Change Algorithm
+# The Legacy Code Change Algorithm (M)
 
 1. identify change points
 2. find test points
@@ -9,7 +9,7 @@
 
 ----
 
-# General Legacy Management Strategy 
+# General Legacy Management Strategy (M)
 
 (from http://www.objectmentor.com/resources/articles/WorkingEffectivelyWithLegacyCode.pdf)
 
@@ -28,7 +28,7 @@ point, or inconsequential in the application._
 
 ----
 
-# The Seam Model
+# The Seam Model (M)
 
 _A **seam** is a place where you can alter behaviour in your program without editing in that place._
 
@@ -52,7 +52,7 @@ Sometimes, we have to change some code to make something a seam. E.g. static -> 
 
 ----
 
-# How Do I Know That I'm Not Breaking Anything?
+# How Do I Know That I'm Not Breaking Anything? (M)
 
 * lean on the compiler
 * monitoring
@@ -83,7 +83,7 @@ After writing characterization test, look at the code you want to change and mak
 
 ----
 
-# I Don't Understand the Code Well Enough to Change it
+# I Don't Understand the Code Well Enough to Change it (M)
 
 * notes / sketching
 * listing markup
@@ -96,11 +96,11 @@ After writing characterization test, look at the code you want to change and mak
 
 ----
 
-# Example: legacy singletons
+# Example: legacy singletons (M)
 
 ----
 
-# Example: service in domain model class
+# Example: service in domain model class (M)
 
 I.e., for JEE: CDI in JPA
 

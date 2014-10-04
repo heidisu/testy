@@ -1,12 +1,16 @@
 package testy.app;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
 import testy.manager.UtlaanManager;
 import testy.model.*;
 import testy.service.BibliotekService;
@@ -14,6 +18,8 @@ import testy.service.BokService;
 import testy.service.FristService;
 import testy.service.LaanerService;
 import testy.service.MailService;
+import testy.service.UtlaanService;
+import testy.service.UtlaanServiceTest;
 import testy.util.StoreUtil;
 
 /**
@@ -21,16 +27,20 @@ import testy.util.StoreUtil;
  */
 @Test
 public class AppTest {
+
   private Laaner heidi;
+  private Laaner michael;
   private Bok politi;
-  
-  public void testRun() {
+  private Bibliotek oslo;
+
+  @BeforeMethod(alwaysRun = true)
+  public void setUp() {
     Bibliotek lysaker = new Bibliotek();
-    Bibliotek oslo = new Bibliotek();
+    oslo = new Bibliotek();
     StoreUtil.save(lysaker);
     StoreUtil.save(oslo);
 
-    Laaner michael = new Laaner();
+    michael = new Laaner();
     michael.setBibliotek(lysaker);
     lysaker.addLaaner(michael);
     michael.setFornavn("Michael");
@@ -44,9 +54,14 @@ public class AppTest {
     heidi.setBibliotek(oslo);
     heidi.setId("124");
     heidi.setEpost("");
+    Calendar kalender = new GregorianCalendar();
+    kalender.set(Calendar.YEAR, 1980);
+    kalender.set(Calendar.MONTH, 10);
+    kalender.set(Calendar.DAY_OF_MONTH, 23);
+    heidi.setFoedselsdato(new Date(kalender.getTimeInMillis()));
     oslo.addLaaner(heidi);
     StoreUtil.save(heidi);
-    
+
     Utgiver aschehoug = new Utgiver();
     StoreUtil.save(aschehoug);
 
@@ -69,15 +84,14 @@ public class AppTest {
 
     List<Utlaan> utlaanList = michael.getUtlaan();
 
-    for (Utlaan utlaan : utlaanList) {
-      System.out.println(utlaan);
-    }
-
     Assert.assertEquals(utlaanList.size(), 1);
-
   }
 
-  @Test(dependsOnMethods = { "testRun" })
+  @AfterMethod(alwaysRun = true)
+  public void tearDown() {
+    StoreUtil.emptyStore();
+  }
+
   public void testForfallsDato() {
     List<Laaner> laanere = new LaanerService().getLaanere();
     for (Laaner laaner : laanere) {
@@ -87,24 +101,29 @@ public class AppTest {
       }
     }
   }
-  
-  @Test(dependsOnMethods = {"testRun"})
-  public void testBestillBok(){
-   BokService bokService = new BokService();
-   bokService.bestillBok(politi, heidi);
-   Assert.assertEquals(politi.getReservasjoner().size(), 1);
-   Assert.assertEquals(StoreUtil.getObjects(Reservasjon.class).size(), 1);
+
+  public void testBestillBok() {
+    BokService bokService = new BokService();
+    bokService.bestillBok(politi, heidi);
+    Assert.assertEquals(politi.getReservasjoner().size(), 1);
+    Assert.assertEquals(StoreUtil.getObjects(Reservasjon.class).size(), 1);
   }
 
-  @Test(dependsOnMethods = { "testRun" })
-  public void testSendForfallspaaminnelse() {
-      Map<Laaner, List<Utlaan>> forfallendeUtlaan = UtlaanManager.getInstance().getForfallendeUtlaan();
-      BibliotekService bibliotekService = new BibliotekService();
+  public void testLeverBok() {
+    Date idag = new Date(System.currentTimeMillis());
+    Utlaan utlaan = michael.getUtlaan().iterator().next();
+    UtlaanManager.getInstance().leverBok(utlaan);
+    Assert.assertTrue(idag.equals(utlaan.getLevertDato()));
+  }
 
-      Bibliotek lysaker = new Bibliotek();
-      bibliotekService.sendMailTilAlleLaanere(lysaker, "purring", "lever tilbake!!");
-
-      //TODO: test at alle forfallendeUtlaan resulterer i en epost sent til riktig person.
-      Assert.assertTrue(false);
+  public void testLeverBokMedReservasjon() {
+    Date idag = new Date(System.currentTimeMillis());
+    BokService bokService = new BokService();
+    bokService.bestillBok(politi, heidi);
+    Utlaan utlaan = michael.getUtlaan().iterator().next();
+    Assert.assertEquals(politi.getReservasjoner().size(), 1);
+    UtlaanManager.getInstance().leverBok(utlaan);
+    Assert.assertTrue(idag.equals(utlaan.getLevertDato()));
+    Assert.assertTrue(politi.getReservasjoner().isEmpty());
   }
 }

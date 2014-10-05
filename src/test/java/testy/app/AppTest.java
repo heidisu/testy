@@ -1,11 +1,9 @@
 package testy.app;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Map;
 
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -13,13 +11,9 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import testy.manager.UtlaanManager;
 import testy.model.*;
-import testy.service.BibliotekService;
 import testy.service.BokService;
 import testy.service.FristService;
 import testy.service.LaanerService;
-import testy.service.MailService;
-import testy.service.UtlaanService;
-import testy.service.UtlaanServiceTest;
 import testy.util.StoreUtil;
 
 /**
@@ -63,9 +57,12 @@ public class AppTest {
     StoreUtil.save(heidi);
 
     Utgiver aschehoug = new Utgiver();
+    aschehoug.setNavn("Aschehoug");
     StoreUtil.save(aschehoug);
 
     Forfatter nesboe = new Forfatter();
+    nesboe.setFornavn("Jo");
+    nesboe.setEtternavn("Nesbø");
     StoreUtil.save(nesboe);
 
     politi = new Bok();

@@ -28,12 +28,11 @@ public class BibliotekService {
 
   private static final MailService mailService = new MailService();
 
-  // oppgave legge til ny mailtype
   public void sendMailTilAlleLaanere(Bibliotek bibliotek,
       String mailtype, String text, String maalgruppe) {
     List<Laaner> laanere = bibliotek.getLaanere();
     for (Laaner laaner : laanere) {
-      switch (mailtype) { // purring, arrangement, nyebøker
+      switch (mailtype) { // purring, arrangement, boktips
         case "purring":
           List<Utlaan> forfalteUtlaan = UtlaanManager.getInstance().getForfalteUtlaan(bibliotek);
           for (Utlaan utlaan : forfalteUtlaan) {

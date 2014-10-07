@@ -9,9 +9,9 @@ Under er det skissert oppgaver for å skrive tester og forbedre koden.
 
 3. Se på metoden sendMailTilAlleLaanere i BibliotekService, og tenk at du skal lage funksjonalitet for mailtypen "boktips". Denne mailtypen skal som for "arrangement"-typen bruke maalgruppe slik at man ikke får mail om bøker man ikke er interessert i. 
   * Skriv tester for eksisterende funksjonalitet. Pass på at du kan erstatte mailService med en testimplementasjon, mock eller annet slik at du ikke faktisk sender mail. Tilsvarende for UtlaanManager er det kanskje enklere å klare å kontrollere hva metoden getForfalteUtlaan(bibliotek) returnerer.
-  * Refaktorer metoden slik at innholdet splittes i flere metoder over flere klasser. Kanskje sendForfallspaaminnelse i UtlaanService har noe felles med sendMailTilAlleLaanere?
   * Implementer den nye funksjonaliteten på testdrevet vis 
-
+  * Refaktorer metoden slik at innholdet splittes i flere metoder over flere klasser. Kanskje sendForfallspaaminnelse i UtlaanService har noe felles med sendMailTilAlleLaanere?
+  
 4. Refaktorere finnLedigBokEksemplar i BokService og getLedigBokeksemplar i bibliotekService til felles kode
   * Effektanalyse
   * Skrive tester
